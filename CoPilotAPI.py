@@ -27,6 +27,14 @@ def setbatch(ip,port,batch,prodfam):
 
     return jsonify(setbatch)
 
+#create endpoint for getting current batch number on machine for logic control
+@app.route('/getbatch/<ip>/<port>/')
+def getbatch(ip,port):
+
+    getbatch = SquidSocket.get_batch(str(ip),int(port))
+
+    return jsonify(getbatch)
+
 #Waitress setup. Comment out for development work
 serve(app, host=local_ip,port=5000,threads=4)
 #uncomment for development servers on machine or within IDE

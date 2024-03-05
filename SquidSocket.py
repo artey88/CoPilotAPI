@@ -56,3 +56,16 @@ def set_batch(TCP_IP,TCP_PORT,BatchNum,ProdFam):
     resp = '200 OK'
 
     return resp
+
+#define get_batch function, reads current auto data string on the machine for logical control
+def get_batch(TCP_IP, TCP_PORT):
+    #connect if not connected
+    connect(TCP_IP, TCP_PORT)
+    
+    message = b'GET_AUTO_DATA_STRING\n'
+    sock.sendall(message)
+    data = sock.recv(BUFFER_SIZE)
+    resp = data.decode('utf-8').strip().split('=')[-1].split('~',1)[0]
+
+    return resp
+    
